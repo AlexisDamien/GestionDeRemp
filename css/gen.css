@@ -1,0 +1,115 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: #000;
+}
+header{
+    border-bottom: 2px solid #00B398;
+}
+nav{
+    width: 100%;
+    margin: 0 0 0 35%;
+    position: sticky;
+    top: 0px;
+}
+nav ul{
+    list-style-type: none;
+}
+nav ul li{
+    float: left;
+    width: 10%;
+    text-align: center;
+    position: relative;
+}
+nav ul::after{
+    content: "";
+    display: table;
+    clear: both;
+}
+nav a{
+    display: block;
+    text-decoration: none;
+    color: #000;
+    border-bottom: 2px solid transparent;
+    padding: 10px 0px;
+}
+.sous{
+    display: none;
+    box-shadow: 0px 1px 2px #CCC;
+    background-color: #fff;
+    position: absolute;
+    width: 100%;
+    z-index: 1000;
+}
+nav > ul li:hover .sous{
+    display: block;
+}
+li:hover{
+    background-color:#00B398;
+}
+.sous li{
+    float: none;
+    width: 100%;
+    text-align: left;
+}
+.sous a{
+    padding: 10px;
+    border-bottom: none;
+}
+.sous a:hover{
+    border-bottom: none;
+    background-color: #00B398;
+    color: #fff;
+}
+.deroulant > a::after{
+    content: " ▼";
+    font-size: 12px;
+}
+.foot{
+    background-color: #000;
+    display: flex;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    padding: 30px;
+}
+.button{
+    margin: 1% 0 0 1%; 
+}
+.styled-table{
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+}
+.styled-table thead tr{
+    background-color: #00B398;
+    color: #fff;
+    text-align: left;
+}
+.styled-table th, .styled-table td{
+    padding: 12px 15px;
+}
+.styled-table tbody tr{
+    border-bottom: 1px solid #dddddd;
+}
+.styled-table tbody tr:nth-of-type(even){
+    background-color: #f3f3f3;
+}
+.styled-table tbody tr:last-of-type{
+    border-bottom: 2px solid #009879;
+}
+.styled-table tbody tr.active-row{
+    font-weight: bold;
+    color: #009879;
+}
+.here{
+    color: green;
+}
+.nothere{
+    color: red;
+}
