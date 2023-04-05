@@ -38,7 +38,7 @@
     }
     elseif ($page == "conge"){
         try{
-            $req = $pdo->prepare("INSERT INTO Conge (gestionnaire, datedebut, datefin, typeconge) VALUES (?,?,?,?)");
+            $req = $pdo->prepare("INSERT INTO Conge (gestionConge, datedebut, datefin, typeconge) VALUES (?,?,?,?)");
             $req->execute(array($_POST['idGestion'],$_POST['dateDebut'],$_POST['dateFin'],$_POST['type']));
             $req->closeCursor();
         }   catch (PDOException $e){

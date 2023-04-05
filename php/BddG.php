@@ -1,3 +1,5 @@
+<?php require('LoadP.php'); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -64,12 +66,23 @@
             </thead>
             <tbody>
                 <?php
+                    $portefeuille = "";
                     try {
                         $pdo = new PDO('sqlite:..\Adecco.db');
                     }  catch (PDOException $e) {
                             die("Erreur de connexion dans le fichier {$e->getFile()} à la ligne {$e->getLine()} : {$e->getCode()} - {$e->getMessage()}");
                     }
-                        $ListeS = $pdo->query("SELECT gestionid, genom, prenom, pole, anciennete, dispo, code FROM Gestionnaire G left outer JOIN portefeuille P ON G.gestionid = P.gestionnaire left outer JOIN agence A ON A.agenceid = P.agence");
+                        $ListeS = $pdo->query("SELECT gestionid, genom, prenom, pole, anciennete, dispo, code FROM Gestionnaire G INNER JOIN portefeuille P ON G.gestionid = P.gestionnaire INNER JOIN agence A ON A.agenceid = P.agence");
+                        foreach ($ListeS as $porte){
+                            if (isset(${'portefeuille'.$porte['gestionid']})){
+                                ${'portefeuille'.$porte['gestionid']} .= $porte['code'].", ";
+                            }
+                            else {
+                                ${'portefeuille'.$porte['gestionid']} = "";
+                                ${'portefeuille'.$porte['gestionid']} .= $porte['code'].", ";
+                            }
+                        }
+                        $ListeS = $pdo->query("SELECT gestionid, genom, prenom, pole, anciennete, dispo FROM Gestionnaire");
                         foreach ($ListeS as $liste){
                             $cpt = 0;
                             if($cpt%2 == 0){
@@ -77,7 +90,12 @@
                                 echo("<td>".$liste['genom']." ".$liste['prenom']."</td>");
                                 echo("<td>".$liste['pole']."</td>");
                                 echo("<td>".$liste['anciennete']."</td>");
-                                echo("<td>".$liste['code'].', '."</td>");
+                                if (isset(${'portefeuille'.$liste['gestionid']})){
+                                    echo("<td>".${'portefeuille'.$liste['gestionid']}."</td>");
+                                }
+                                else{
+                                    echo("<td>"."</td>");
+                                }
                                 if ($liste['dispo'] == "Présent"){
                                     echo("<td class='here'>".$liste['dispo']."</td>");
                                 }
@@ -94,7 +112,12 @@
                                 echo("<td>".$liste['genom']." ".$liste['prenom']."</td>");
                                 echo("<td>".$liste['pole']."</td>");
                                 echo("<td>".$liste['anciennete']."</td>");
-                                echo("<td>".$liste['code']."</td>");
+                                if (isset(${'portefeuille'.$liste['gestionid']})){
+                                    echo("<td>".${'portefeuille'.$liste['gestionid']}."</td>");
+                                }
+                                else{
+                                    echo("<td>"."</td>");
+                                }
                                 if ($liste['dispo'] == "Présent"){
                                     echo("<td class='here'>".$liste['dispo']."</td>");
                                 }

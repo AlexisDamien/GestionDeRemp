@@ -107,7 +107,7 @@
             </thead>
             <tbody>
                 <?php
-                    $req = "SELECT congeid, gestionid, genom, prenom, datedebut, typeconge, datefin FROM gestionnaire G INNER JOIN Conge C ON G.gestionid = C.gestionnaire";
+                    $req = "SELECT congeid, gestionid, genom, prenom, datedebut, typeconge, datefin FROM gestionnaire G INNER JOIN Conge C ON G.gestionid = C.gestionConge";
                     if (isset($_POST['gestionid']) && $_POST['gestionid'] <> ""){
                         $req .= " WHERE G.gestionid={$_POST['gestionid']}";
                         try {
