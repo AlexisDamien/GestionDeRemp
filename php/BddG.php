@@ -41,11 +41,7 @@
                 <option value="Carré VIP">3. Carré VIP</option>
                 <option value="Gestionnaire dématéralisation">4. Gestionnaire dématéralisation</option>
             </select>
-            <select name="anciennete" id="anciennete">
-                <option value="">--Ancienneté--</option>
-                <option value="Supérieur à 6 mois">Supérieur à 6 mois</option>
-                <option value="Inférieur à 6 mois">Inférieur à 6 mois</option>
-            </select>
+            Date d'arrivée : <input type="date" name="arrive" id="arrive">
             <input type="submit" value="Ajouter" name="submit">
             <input type="hidden" value="Gestionnaire" name="page"> 
         </form>
@@ -102,7 +98,7 @@
                                 else{
                                     echo("<td class='nothere'>".$liste['dispo']."</td>");
                                 }
-                                echo("<td>"."</td>");
+                                echo("<td><img src=../img/editing.png witdh=15 height=15></td>");
                                 echo("<td><a href='Delete.php?idgestion=$liste[gestionid]'><img src=../img/delete.png witdh=15 height=15></a></td>");
                                 echo("</tr>");
                                 $cpt++;

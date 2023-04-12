@@ -46,17 +46,20 @@
                     }  catch (PDOException $e) {
                             die("Erreur de connexion dans le fichier {$e->getFile()} à la ligne {$e->getLine()} : {$e->getCode()} - {$e->getMessage()}");
                     }
-                    $ListeS = $pdo->query("SELECT gestionid, genom, prenom, pole, anciennete, dispo, code FROM Gestionnaire G left outer JOIN portefeuille P ON G.gestionid = P.gestionnaire left outer JOIN agence A ON A.agenceid = P.agence WHERE dispo='Absent'");
+                    $ListeS = $pdo->query("SELECT gestionid, genom, prenom, pole, anciennete, dispo, code FROM Gestionnaire G left JOIN portefeuille P ON G.gestionid = P.gestionnaire left JOIN agence A ON A.agenceid = P.agence WHERE dispo='Absent'");
                     foreach ($ListeS as $porte){
                         if (isset(${'portefeuille'.$porte['gestionid']})){
                             ${'portefeuille'.$porte['gestionid']} .= $porte['code'].", ";
+                        }
+                        elseif ($porte['code'] == ""){
+                            ${'portefeuille'.$porte['gestionid']} = "";
                         }
                         else {
                             ${'portefeuille'.$porte['gestionid']} = "";
                             ${'portefeuille'.$porte['gestionid']} .= $porte['code'].", ";
                         }
                     }
-                    $ListeS = $pdo->query("SELECT gestionid, genom, prenom, pole, anciennete, dispo, code FROM Gestionnaire G left outer JOIN portefeuille P ON G.gestionid = P.gestionnaire left outer JOIN agence A ON A.agenceid = P.agence WHERE dispo='Absent'");
+                    $ListeS = $pdo->query("SELECT gestionid, genom, prenom, pole, anciennete, dispo FROM Gestionnaire WHERE dispo='Absent'");
                     foreach ($ListeS as $liste){
                         $cpt = 0;
                         if($cpt%2 == 0){
@@ -90,6 +93,7 @@
             </tbody>
         </table>
     </div>
+                    
     <div class="foot"></div>
 </body>
 </html>

@@ -31,21 +31,9 @@
     </header>
     <div>
         <form class="button" action="Conge.php" method="post">
-            <input type="text" placeholder="Rechercher" name="SEARCH" id="search">
             <select name="gestionid" id="gestionid">
-                <option value="">-- Choisis ta voie --</option>
-                <?php/*
-                    try {
-                        $pdo = new PDO('sqlite:..\Adecco.db');
-                    }  catch (PDOException $e) {
-                            die("Erreur de connexion dans le fichier {$e->getFile()} à la ligne {$e->getLine()} : {$e->getCode()} - {$e->getMessage()}");
-                    }
-                    $ListeS = $pdo->query("SELECT gestionid, genom, prenom FROM Gestionnaire");
-                        foreach ($ListeS as $liste){
-                            echo '<option value='.$liste['gestionid'].'>'.$liste['genom']." ".$liste['prenom'].'</option>';
-                        }
-                */?>
-                <?php
+                <option value="">-- Gestionnaire --</option>
+                <?php //Liste déroulante contenant les noms des gestionnaires
                     try {
                         $pdo = new PDO('sqlite:..\Adecco.db');
                     }   
@@ -69,16 +57,15 @@
         </form>
     </div>
     <div>
-        <?php
-            $reqname = "SELECT genom, prenom FROM Gestionnaire";
+        <?php //Affiche les données propres au gestionnaire une fois selectionné et permet d'ajouter des congés pour au gestionnaire
+            try {
+                $pdo = new PDO('sqlite:..\Adecco.db');
+            }  catch (PDOException $e) {
+            die("Erreur de connexion dans le fichier {$e->getFile()} à la ligne {$e->getLine()} : {$e->getCode()} - {$e->getMessage()}");
+            }
             if(isset($_POST['gestionid']) && $_POST['gestionid'] <> ""){
-                $reqname .= " WHERE gestionid={$_POST['gestionid']}";
-                try {
-                    $pdo = new PDO('sqlite:..\Adecco.db');
-                    $name = $pdo->query($reqname);
-                }  catch (PDOException $e) {
-                        die("Erreur de connexion dans le fichier {$e->getFile()} à la ligne {$e->getLine()} : {$e->getCode()} - {$e->getMessage()}");
-                }
+                $reqname = "SELECT genom, prenom FROM Gestionnaire WHERE gestionid={$_POST['gestionid']}";
+                $name = $pdo->query($reqname);
                 foreach ($name as $na){
                     echo "<h1>".$na['genom']." ".$na['prenom']."</h1>";
                     echo "<form class='button' action='Insert.php' method='POST'>";
@@ -91,9 +78,9 @@
                     echo '<input type="submit" value="Ajouter Conge" name="submit">';
                     echo '<input type="hidden" value="conge" name="page">';
                     echo '<input type="hidden" value='.$_POST['gestionid'].' name="idGestion">';
-                echo "</form>";
-                    }
+                    echo "</form>";
                 }
+            }
         ?>
     </div>
     <div>

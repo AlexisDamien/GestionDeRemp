@@ -18,8 +18,8 @@
     elseif ($page == "Gestionnaire"){
         $dispo = 'Présent';
         try {
-            $req = $pdo->prepare("INSERT INTO Gestionnaire (genom, prenom, pole, anciennete, dispo) VALUES (?,?,?,?,?)");
-            $req->execute(array(ucfirst($_POST['genom']), ucfirst($_POST['prenom']), $_POST['pole'], $_POST['anciennete'], $dispo));
+            $req = $pdo->prepare("INSERT INTO Gestionnaire (genom, prenom, pole, arrive, dispo) VALUES (?,?,?,?,?)");
+            $req->execute(array(ucfirst($_POST['genom']), ucfirst($_POST['prenom']), $_POST['pole'], $_POST['arrive'], $dispo));
             $req->closeCursor();
         }  catch (PDOException $e) {
                 die("Erreur de connexion dans le fichier {$e->getFile()} à la ligne {$e->getLine()} : {$e->getCode()} - {$e->getMessage()}");
