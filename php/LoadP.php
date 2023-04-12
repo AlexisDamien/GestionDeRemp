@@ -24,5 +24,5 @@
                     $update->execute(array());
                 }
             }
-            $req->closeCursor();
+        $req->closeCursor();
 ?>
