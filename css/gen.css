@@ -7,21 +7,30 @@
 }
 header{
     border-bottom: 2px solid #00B398;
-}
-nav{
-    width: 100%;
-    margin: 0 0 0 35%;
+    display: flex;
+    justify-content: center;
+    width: 100vw;
     position: sticky;
     top: 0px;
 }
+body{
+    height: 100vh;
+}
+nav{
+    width: max(50vw,300px);
+    display: flex;
+    justify-content: center;
+}
 nav ul{
     list-style-type: none;
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 nav ul li{
     float: left;
-    width: 10%;
     text-align: center;
-    position: relative;
+    flex: 1;
 }
 nav ul::after{
     content: "";
@@ -40,7 +49,7 @@ nav a{
     box-shadow: 0px 1px 2px #CCC;
     background-color: #fff;
     position: absolute;
-    width: 100%;
+    width: 40.85%;
     z-index: 1000;
 }
 nav > ul li:hover .sous{
@@ -75,9 +84,6 @@ li:hover{
     width: 100%;
     padding: 30px;
 }
-.button{
-    margin: 1% 0 0 1%; 
-}
 .styled-table{
     width: 100%;
     border-collapse: collapse;
@@ -98,7 +104,7 @@ li:hover{
     border-bottom: 1px solid #dddddd;
 }
 .styled-table tbody tr:nth-of-type(even){
-    background-color: #f3f3f3;
+    background-color: #dcdcdc;
 }
 .styled-table tbody tr:last-of-type{
     border-bottom: 2px solid #009879;
@@ -112,4 +118,89 @@ li:hover{
 }
 .nothere{
     color: red;
+}
+
+.popup {
+    display: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1001;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(200,200,200,0.4);
+}
+.popup.show{
+    display: flex;
+}
+.popup form{
+    display: flex;
+    flex-direction: column;
+    background-color: #f3f3f3;
+    box-shadow: 0px 0px 5px #000;
+    border-radius: 5px;
+    padding: 15px;
+    align-items: stretch;
+}
+.popup form input, .popup form select{
+    margin: 15px;
+    padding: 10px;
+}
+.popup form label{
+    margin-left: 20px;
+}
+.popup form h3{
+    text-align: center;
+}
+
+.popup form input[type='submit']{
+    background: #009879;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+}
+
+.popup form input[type='submit']:hover{
+    background: #00b08d;
+
+}
+
+.popup form .close-btn{
+    position: relative;
+    align-self: flex-end;
+    margin-bottom: 5px;
+    width: 15px;
+    height: 15px;
+    background: #888;
+    color: #eee;
+    text-align: center;
+    line-height: 15px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+.blur{
+    filter: blur(5px);
+}
+.edit-btn{
+    border: none;
+    cursor: pointer;
+}
+.new-btn{
+    margin-left: 10px;
+    margin-top: 10px;
+    padding: 15px;
+    border: none;
+    background: #00B398;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+.new-btn:hover{
+    box-shadow: 0px 0px 5px #000;
+    background: #00b08d;
 }

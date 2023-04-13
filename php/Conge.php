@@ -1,3 +1,5 @@
+<?php require('LoadP.php'); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,8 +14,6 @@
     <header>
         <nav>
             <ul>
-                <li>                
-                </li>
                 <li class=""><a href="..\html\Index.html">Accueil</a></li>
                 <li class="deroulant"><a href="#">Manager</a>
                     <ul class="sous">
@@ -57,7 +57,7 @@
         </form>
     </div>
     <div>
-        <?php //Affiche les données propres au gestionnaire une fois selectionné et permet d'ajouter des congés pour au gestionnaire
+        <?php //Affiche les données propres au gestionnaire selectionné et permet d'ajouter des congés au gestionnaire
             try {
                 $pdo = new PDO('sqlite:..\Adecco.db');
             }  catch (PDOException $e) {
@@ -89,38 +89,30 @@
                 <tr>
                     <td>Congé</td>
                     <td>Type</td>
+                    <td>Statut</td>
+                    <td>Edit.</td>
                     <td>Suppr.</td>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                    $req = "SELECT congeid, gestionid, genom, prenom, datedebut, typeconge, datefin FROM gestionnaire G INNER JOIN Conge C ON G.gestionid = C.gestionConge";
+                    $req = "SELECT congeid, gestionid, genom, prenom, datedebut, typeconge, datefin, statut_conge FROM gestionnaire G INNER JOIN Conge C ON G.gestionid = C.gestionConge";
                     if (isset($_POST['gestionid']) && $_POST['gestionid'] <> ""){
                         $req .= " WHERE G.gestionid={$_POST['gestionid']}";
                         try {
                             $pdo = new PDO('sqlite:..\Adecco.db');
                         }  catch (PDOException $e) {
-                                die("Erreur de connexion dans le fichier {$e->getFile()} à la ligne {$e->getLine()} : {$e->getCode()} - {$e->getMessage()}");
+                                die("Erreur" .$e);
                         }
                         $ListeS = $pdo->query($req);
                         foreach ($ListeS as $liste){
-                            $cpt = 0;
-                            if($cpt%2 == 0){
-                                echo("<tr>");
-                                echo("<td>".$liste['datedebut']." - ".$liste['datefin']."</td>");
-                                echo("<td>".$liste['typeconge']."</td>");
-                                echo("<td><a href='Delete.php?idconge=$liste[congeid]'><img src=../img/delete.png witdh=15 height=15></a></td>");
-                                echo("</tr>");
-                                $cpt++;
-                            }
-                            elseif ($cpt%2 <> 0){
-                                echo("<tr>");
-                                echo("<td>".$liste['datedebut']." - ".$liste['datefin']."</td>");
-                                echo("<td>".$liste['type']."</td>");
-                                echo("<td><a href='Delete.php?idconge=$liste[congeid]'><img src=../img/delete.png witdh=15 height=15></a></td>");
-                                echo("</tr>");
-                                $cpt++;
-                            }
+                            echo("<tr>");
+                            echo("<td>".$liste['datedebut']." - ".$liste['datefin']."</td>");
+                            echo("<td>".$liste['typeconge']."</td>");
+                            echo("<td>".$liste['statut_conge']."</td>");                            
+                            echo("<td><button class='edit-btn' id='show-add' onclick='popup_show()'><img src=../img/editing.png witdh=15 height=15></button></td>");
+                            echo("<td><a href='Delete.php?idconge=$liste[congeid]'><img src=../img/delete.png witdh=15 height=15></a></td>");
+                            echo("</tr>");
                         }
                     }
                 ?>

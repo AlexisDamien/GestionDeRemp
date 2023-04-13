@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="..\css\gen.css">
+    <script src="../js/popup.js"></script>
     <title>Gestion Agence</title>
 </head>
 <body>
@@ -26,69 +27,78 @@
             </ul>
         </nav>
     </header>
-    <div class="button">
+    <main>
+        <div>
+            <button class="new-btn" id="show-add" onclick='popup_show("popup1")'>Nouvelle Agence</button>
+        </div>
+        <div>
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <td>Code Agence</td>
+                        <td>Nom site</td>
+                        <td>Complexité</td>
+                        <td>Edit.</td>
+                        <td>Suppr.</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                        try {
+                            $pdo = new PDO('sqlite:..\Adecco.db');
+                        }  catch (PDOException $e) {
+                                die("Erreur de connexion dans le fichier {$e->getFile()} à la ligne {$e->getLine()} : {$e->getCode()} - {$e->getMessage()}");
+                        }
+                        $ListeS = $pdo->query("SELECT agenceid, code, agnom, complexite FROM Agence");
+                        foreach ($ListeS as $liste){
+                                echo"<tr>";
+                                echo"<td>".$liste['code']."</td>";
+                                echo"<td>".$liste['agnom']."</td>";
+                                echo"<td>".$liste['complexite']."</td>";
+                                echo"<td><button class='edit-btn' id='show-add' onclick='popup_show(\"popup2\")'><img src=../img/editing.png witdh=15 height=15></button></td>";
+                                echo"<td><a href='Delete.php?idagence=$liste[agenceid]'><img src=../img/delete.png witdh=15 height=15></a></td>";
+                                echo"</tr>";
+                        }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    <div id="popup1" class="popup">
         <form action="Insert.php" method="post">
-            <input type="text" class="form_field" placeholder="Code Agence" name="code" id="code">
-            <input type="text" class="form_field" placeholder="Nom site" name="agnom" id="agnom">
+            <div class="close-btn" onclick='popup_hide("popup1")'>&times;</div>
+            <h3>Nouvelle Agence</h3>
+            <input type="text" placeholder="Code Agence" name="code" id="code">
+            <input type="text" placeholder="Nom site" name="agnom" id="agnom">
                 <select name="complexite" id="complexite">
                     <option value="">--Complexité--</option>
-                    <option value="Très simple">1. Très simple</option>
-                    <option value="Simple">2. Simple</option>
-                    <option value="Normale">3. Normale</option>
-                    <option value="Complexe">4. Complexe</option>
-                    <option value="Très complexe">5. Très complexe</option>
+                    <option value="Très simple">Très simple</option>
+                    <option value="Simple">Simple</option>
+                    <option value="Normale">Normale</option>
+                    <option value="Complexe">Complexe</option>
+                    <option value="Très complexe">Très complexe</option>
                 </select>
             <input type="submit" value="Ajouter" name="submit">
             <input type="hidden" value="Agence" name="page"> 
         </form>
     </div>
-    <div>
-        <table class="styled-table">
-            <thead>
-                <tr>
-                    <td>Code Agence</td>
-                    <td>Nom site</td>
-                    <td>Complexité</td>
-                    <td>Edit.</td>
-                    <td>Suppr.</td>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                    try {
-                        $pdo = new PDO('sqlite:..\Adecco.db');
-                    }  catch (PDOException $e) {
-                            die("Erreur de connexion dans le fichier {$e->getFile()} à la ligne {$e->getLine()} : {$e->getCode()} - {$e->getMessage()}");
-                    }
-                        $ListeS = $pdo->query("SELECT agenceid, code, agnom, complexite FROM Agence");
-                    
-                        foreach ($ListeS as $liste){
-                            $cpt=0;
-                            if($cpt%2 == 0){
-                                echo("<tr>");
-                                echo("<td>".$liste['code']."</td>");
-                                echo("<td>".$liste['agnom']."</td>");
-                                echo("<td>".$liste['complexite']."</td>");
-                                echo("<td>"."</td>");
-                                echo("<td><a href='Delete.php?idagence=$liste[agenceid]'><img src=../img/delete.png witdh=15 height=15></a></td>");
-                                echo("</tr>");
-                                $cpt++;
-                            }
-                            elseif($cpt%2 <> 0){
-                                echo("<tr class=''active-row>");
-                                echo("<td>".$liste['code']."</td>");
-                                echo("<td>".$liste['agnom']."</td>");
-                                echo("<td>".$liste['complexite']."</td>");
-                                echo("<td>"."</td>");
-                                echo("<td><a href='Delete.php?idagence=$liste[agenceid]'><img src=../img/delete.png witdh=15 height=15></a></td>");
-                                echo("</tr>");
-                                $cpt++;
-                            }
-                      }
-                ?>
-            </tbody>
-        </table>
+    <div id="popup2" class="popup">
+        <form action="update.php" method="post">
+            <div class="close-btn" onclick='popup_hide("popup2")'>&times;</div>
+            <h3>Editer Agence</h3>
+            <input type="text" placeholder="Code Agence" name="code" id="code">
+            <input type="text" placeholder="Nom site" name="agnom" id="agnom">
+                <select name="complexite" id="complexite">
+                    <option value="">--Complexité--</option>
+                    <option value="Très simple">Très simple</option>
+                    <option value="Simple">Simple</option>
+                    <option value="Normale">Normale</option>
+                    <option value="Complexe">Complexe</option>
+                    <option value="Très complexe">Très complexe</option>
+                </select>
+            <input type="submit" value="Modifier" name="submit">
+            <input type="hidden" value="Agence" name="page"> 
+        </form>
     </div>
-    <div class="foot"></div>
 </body>
 </html>

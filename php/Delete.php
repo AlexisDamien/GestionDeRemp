@@ -11,7 +11,7 @@
             $req->execute(array($_GET["idagence"]));
         } 
             catch (PDOException $e) {
-                die("Erreur de connexion dans le fichier {$e->getFile()} à la ligne {$e->getLine()} : {$e->getCode()} - {$e->getMessage()}");
+                die("Erreur" .$e);
             }
         header("location:./BddA.php");
     }
@@ -21,7 +21,7 @@
                 $req->execute(array($_GET["idgestion"]));
             } 
                 catch (PDOException $e) {
-                    die("Erreur de connexion dans le fichier {$e->getFile()} à la ligne {$e->getLine()} : {$e->getCode()} - {$e->getMessage()}");
+                    die("Erreur" .$e);
                 }
             header("location:./BddG.php");
         }

@@ -11,8 +11,6 @@
     <header>
         <nav>
             <ul>
-                <li>                
-                </li>
                 <li class=""><a href="..\html\Index.html">Accueil</a></li>
                 <li class="deroulant"><a href="#">Manager</a>
                     <ul class="sous">
@@ -98,24 +96,13 @@
                             $pdo = new PDO('sqlite:..\Adecco.db');
                             $ListeS = $pdo->query($req);
                         }  catch (PDOException $e) {
-                                die("Erreur de connexion dans le fichier {$e->getFile()} à la ligne {$e->getLine()} : {$e->getCode()} - {$e->getMessage()}");
+                                die("Erreur" .$e);
                         }
                         foreach ($ListeS as $liste){
-                            $cpt = 0;
-                            if($cpt%2 == 0){
-                                echo("<tr>");
-                                echo("<td>".$liste['code']."</td>");
-                                echo("<td><a href='Delete.php?idporte=$liste[porteid]'><img src=../img/delete.png witdh=15 height=15></a></td>");
-                                echo("</tr>");
-                                $cpt++;
-                            }
-                            elseif ($cpt%2 <> 0){
-                                echo("<tr class='active-row'>");
-                                echo("<td>"."</td>");
-                                echo("<td><a href='Delete.php?idporte=$liste[porteid]'><img src=../img/delete.png witdh=15 height=15></a></td>");
-                                echo("</tr>");
-                                $cpt++;
-                            }
+                            echo("<tr>");
+                            echo("<td>".$liste['code']."</td>");
+                            echo("<td><a href='Delete.php?idporte=$liste[porteid]'><img src=../img/delete.png witdh=15 height=15></a></td>");
+                            echo("</tr>");
                         }
                     }
                 ?>

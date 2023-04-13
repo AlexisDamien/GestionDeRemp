@@ -4,25 +4,25 @@
     } catch (PDOException $e) {
         die("Erreur" .$e);
     }  
-     $page = $_POST['page'];
+    $page = $_POST['page'];
     if ($page == "Agence"){
         try {
             $req = $pdo->prepare("INSERT INTO Agence (code,agnom, complexite) VALUES (?,?,?)");
             $req->execute(array($_POST['code'], $_POST['agnom'], $_POST['complexite']));
             $req->closeCursor();
         }  catch (PDOException $e) {
-                die("Erreur de connexion dans le fichier {$e->getFile()} à la ligne {$e->getLine()} : {$e->getCode()} - {$e->getMessage()}");
+                die("Erreur" .$e);
         }
     header("location:./BddA.php");
     }
     elseif ($page == "Gestionnaire"){
         $dispo = 'Présent';
         try {
-            $req = $pdo->prepare("INSERT INTO Gestionnaire (genom, prenom, pole, arrive, dispo) VALUES (?,?,?,?,?)");
-            $req->execute(array(ucfirst($_POST['genom']), ucfirst($_POST['prenom']), $_POST['pole'], $_POST['arrive'], $dispo));
+            $req = $pdo->prepare("INSERT INTO Gestionnaire (genom, prenom, pole, arrive, dispo, anciennete) VALUES (?,?,?,?,?,?)");
+            $req->execute(array(ucfirst($_POST['genom']), ucfirst($_POST['prenom']), $_POST['pole'], $_POST['arrive'], $dispo, 'Inférieur à 6 mois'));
             $req->closeCursor();
         }  catch (PDOException $e) {
-                die("Erreur de connexion dans le fichier {$e->getFile()} à la ligne {$e->getLine()} : {$e->getCode()} - {$e->getMessage()}");
+                die("Erreur" .$e);
         }
     header("location:./BddG.php");
     }

@@ -12,8 +12,6 @@
     <header>
         <nav>
             <ul>
-                <li>                
-                </li>
                 <li class=""><a href="..\html\Index.html">Accueil</a></li>
                 <li class="deroulant"><a href="#">Manager</a>
                     <ul class="sous">
@@ -61,33 +59,16 @@
                     }
                     $ListeS = $pdo->query("SELECT gestionid, genom, prenom, pole, anciennete, dispo FROM Gestionnaire WHERE dispo='Absent'");
                     foreach ($ListeS as $liste){
-                        $cpt = 0;
-                        if($cpt%2 == 0){
-                            echo("<tr>");
-                            echo("<td>".$liste['genom']." ".$liste['prenom']."</td>");
-                            echo("<td>".$liste['pole']."</td>");
-                            if (isset(${'portefeuille'.$liste['gestionid']})){
-                                echo("<td>".${'portefeuille'.$liste['gestionid']}."</td>");
-                            }
-                            else{
-                                echo("<td>"."</td>");
-                            }
-                            echo("</tr>");
-                            $cpt++;
+                        echo("<tr>");
+                        echo("<td>".$liste['genom']." ".$liste['prenom']."</td>");
+                        echo("<td>".$liste['pole']."</td>");
+                        if (isset(${'portefeuille'.$liste['gestionid']})){
+                            echo("<td>".${'portefeuille'.$liste['gestionid']}."</td>");
                         }
-                        elseif ($cpt%2 <> 0){
-                            echo("<tr class='active-row'>");
-                            echo("<td>".$liste['genom']." ".$liste['prenom']."</td>");
-                            echo("<td>".$liste['pole']."</td>");
-                            if (isset(${'portefeuille'.$liste['gestionid']})){
-                                echo("<td>".${'portefeuille'.$liste['gestionid']}."</td>");
-                            }
-                            else{
-                                echo("<td>"."</td>");
-                            }
-                            echo("</tr>");
-                            $cpt++;
+                        else{
+                            echo("<td>"."</td>");
                         }
+                        echo("</tr>");
                     }
                 ?>
             </tbody>

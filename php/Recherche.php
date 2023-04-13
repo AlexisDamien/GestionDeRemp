@@ -11,7 +11,7 @@
             $req->execute(array($nom));
             $req->closeCursor();
         }  catch (PDOException $e) {
-                die("Erreur de connexion dans le fichier {$e->getFile()} à la ligne {$e->getLine()} : {$e->getCode()} - {$e->getMessage()}");
+                die("Erreur" .$e);
         }
     }
     else{
