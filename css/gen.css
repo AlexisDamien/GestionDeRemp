@@ -15,6 +15,7 @@ header{
 }
 body{
     height: 100vh;
+    background : #f0f0f0;
 }
 nav{
     width: max(50vw,300px);
@@ -85,20 +86,21 @@ li:hover{
     padding: 30px;
 }
 .styled-table{
-    width: 100%;
+    width: 90%;
     border-collapse: collapse;
-    margin: 25px 0;
+    margin: 25px 0 0 5%;
     font-size: 0.9em;
     min-width: 400px;
     box-shadow: 0 0 20px rgba(0,0,0,0.15);
+    border: #00b08d solid;
 }
 .styled-table thead tr{
     background-color: #00B398;
     color: #fff;
     text-align: left;
 }
-.styled-table th, .styled-table td{
-    padding: 12px 15px;
+.styled-table td{
+    padding: 12px 10px;
 }
 .styled-table tbody tr{
     border-bottom: 1px solid #dddddd;
@@ -203,4 +205,11 @@ li:hover{
 .new-btn:hover{
     box-shadow: 0px 0px 5px #000;
     background: #00b08d;
+}
+.dropList{
+    padding: 5px;
+    margin: 3px;
+    border-radius: 10px;
+    background: #00B398;
+    color: #fff;
 }

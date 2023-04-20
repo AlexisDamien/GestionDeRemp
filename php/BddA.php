@@ -51,11 +51,11 @@
                         }
                         $ListeS = $pdo->query("SELECT agenceid, code, agnom, complexite FROM Agence");
                         foreach ($ListeS as $liste){
-                                echo"<tr>";
-                                echo"<td>".$liste['code']."</td>";
-                                echo"<td>".$liste['agnom']."</td>";
-                                echo"<td>".$liste['complexite']."</td>";
-                                echo"<td><button class='edit-btn' id='show-add' onclick='popup_show(\"popup2\")'><img src=../img/editing.png witdh=15 height=15></button></td>";
+                                echo"<tr rowId='{$liste['agenceid']}'>";
+                                echo"<td class='edit'>".$liste['code']."</td>";
+                                echo"<td class='edit'>".$liste['agnom']."</td>";
+                                echo"<td class='edit'>".$liste['complexite']."</td>";
+                                echo"<td><button class='edit-btn' id='show-add' onclick='popup_show(\"popup2\",{$liste['agenceid']})'><img src=../img/editing.png witdh=15 height=15></button></td>";
                                 echo"<td><a href='Delete.php?idagence=$liste[agenceid]'><img src=../img/delete.png witdh=15 height=15></a></td>";
                                 echo"</tr>";
                         }
@@ -86,9 +86,9 @@
         <form action="update.php" method="post">
             <div class="close-btn" onclick='popup_hide("popup2")'>&times;</div>
             <h3>Editer Agence</h3>
-            <input type="text" placeholder="Code Agence" name="code" id="code">
-            <input type="text" placeholder="Nom site" name="agnom" id="agnom">
-                <select name="complexite" id="complexite">
+            <input type="text" placeholder="Code Agence" name="code"  class="input-edit">
+            <input type="text" placeholder="Nom site" name="agnom"  class="input-edit">
+                <select name="complexite"  class="input-edit">
                     <option value="">--Complexité--</option>
                     <option value="Très simple">Très simple</option>
                     <option value="Simple">Simple</option>
@@ -98,6 +98,7 @@
                 </select>
             <input type="submit" value="Modifier" name="submit">
             <input type="hidden" value="Agence" name="page"> 
+            <input id='rowId' type="hidden" value="" name="agenceid">
         </form>
     </div>
 </body>

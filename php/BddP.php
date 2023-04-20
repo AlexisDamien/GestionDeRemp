@@ -54,6 +54,9 @@
     </div>
     <div>
         <?php
+            if(isset($_GET['gestionid'])){
+                $_POST['gestionid'] = $_GET['gestionid'];
+            }                  
             $reqname = "SELECT genom, prenom FROM Gestionnaire";
             if(isset($_POST['gestionid']) && $_POST['gestionid'] <> ""){
                 $reqname .= " WHERE gestionid={$_POST['gestionid']}";
@@ -68,12 +71,12 @@
                     echo "<h1>".$na['genom']." ".$na['prenom']."</h1>";
                     }
                 echo "<form action='Insert.php' method='POST'>";
-                    echo '<select name="agenceid" id="agenceid">';
+                    echo '<select name="agenceid" id="agenceid" class="new-btn">';
                         foreach ($code as $codelist){
                             echo '<option value='.$codelist['agenceid'].'>'.$codelist['code'].'</option>';
                         }
                     echo '</select>';
-                    echo '<input type="submit" value="Ajouter agence" name="submit">';
+                    echo '<input class="new-btn" type="submit" value="Ajouter agence" name="submit">';
                     echo '<input type="hidden" value="portefeuille" name="page">';
                     echo '<input type="hidden" value='.$_POST['gestionid'].' name="idGestion">';
                 echo "</form>";
@@ -84,12 +87,13 @@
             <thead>
                 <tr>
                     <td>Agences</td>
+                    <td>Nom Agence</td>
                     <td>Suppr.</td>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                    $req = "SELECT G.genom, G.prenom, code, porteid FROM gestionnaire G INNER JOIN portefeuille P ON gestionnaire=gestionid INNER JOIN Agence A ON agence=agenceid";
+                    $req = "SELECT G.genom, G.prenom, agnom, code, porteid FROM gestionnaire G INNER JOIN portefeuille P ON gestionnaireporte=gestionid INNER JOIN Agence A ON agenceporte=agenceid";
                     if(isset($_POST['gestionid']) && $_POST['gestionid'] <> ""){
                         $req .= " WHERE G.gestionid={$_POST['gestionid']}";
                         try {
@@ -101,6 +105,7 @@
                         foreach ($ListeS as $liste){
                             echo("<tr>");
                             echo("<td>".$liste['code']."</td>");
+                            echo("<td>".$liste['agnom']."</td>");
                             echo("<td><a href='Delete.php?idporte=$liste[porteid]'><img src=../img/delete.png witdh=15 height=15></a></td>");
                             echo("</tr>");
                         }
