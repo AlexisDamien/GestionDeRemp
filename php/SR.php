@@ -27,7 +27,7 @@
             </ul>
         </nav>
 </header>
-    <h2>Gestionnaire à remplacer</h2>
+    <h2 class="title">Gestionnaire à remplacer</h2>
     <div>
         <table class="styled-table">
             <thead>
@@ -76,7 +76,7 @@
             </tbody>
         </table>
     </div>
-    <h2>Gestionnaire En Remplacements</h2>
+    <h2 class="title" >Gestionnaire En Remplacements</h2>
         <form action="Insert.php" method="post">
             <?php //Ajout d'un remplaçant pour un Gestionnaire absent
                 try {
@@ -120,7 +120,7 @@
                     }  catch (PDOException $e) {
                             die("Erreur de connexion dans le fichier {$e->getFile()} à la ligne {$e->getLine()} : {$e->getCode()} - {$e->getMessage()}");
                     }//Tableau des "Personnes en remplacements"
-                    $ListeS = $pdo->query("SELECT R.idRemp, G.gestionid, G.genom as 'gestNomAbs', G.prenom as 'gestPrenomAbs', G2.genom, G2.prenom, C.datedebut, C.datefin FROM Gestionnaire G JOIN Remplacement R on R.idGestionAbs = G.gestionid JOIN Gestionnaire G2 on G2.gestionid = R.idGestionRemp INNER JOIN Conge C ON G.gestionid=C.gestionConge")->fetchAll(PDO::FETCH_ASSOC);
+                    $ListeS = $pdo->query("SELECT R.idRemp, G.gestionid, G.genom as 'gestNomAbs', G.prenom as 'gestPrenomAbs', G2.genom, G2.prenom, C.datedebut, C.datefin FROM Gestionnaire G JOIN Remplacement R on R.idGestionAbs = G.gestionid JOIN Gestionnaire G2 on G2.gestionid = R.idGestionRemp INNER JOIN Conge C ON G.gestionid=C.gestionConge WHERE statut_conge ='En cours'")->fetchAll(PDO::FETCH_ASSOC);
                     foreach ($ListeS as $liste){
                         echo"<tr>";
                         echo"<td>{$liste['genom']}"." "."{$liste['prenom']}</td>";    

@@ -31,7 +31,7 @@
     </header>
     <main>
         <div>
-            <form action="Conge.php" method="post">
+            <form class='dropList' action="Conge.php" method="post">
                 <select name="gestionid" id="gestionid">
                     <option value="">-- Gestionnaire --</option>
                     <?php //Liste déroulante contenant les noms des gestionnaires    
@@ -86,7 +86,7 @@
                             $ListeS = $pdo->query($req);
                             foreach ($ListeS as $liste){
                                 if ($cpt == 0){
-                                    echo "<h1>".$liste['prenom']." ".$liste['genom']."</h1>";
+                                    echo "<h1 class='title'>".$liste['prenom']." ".$liste['genom']."</h1>";
                                     echo '<div>';
                                     echo "<button class='new-btn' id='show-add' onclick="."popup_show('popup1')".">Nouvelle absence</button>";
                                     echo '</div>';                                

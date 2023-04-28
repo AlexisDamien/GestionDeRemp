@@ -26,7 +26,7 @@
             </ul>
         </nav>
     </header>
-        <form class="button" action="BddP.php" method="POST">
+        <form class="liste" action="BddP.php" method="POST">
             <select name="gestionid" id="gestionid">
                 <option value="">-- Choisis ton chemin --</option>
                 <?php
@@ -68,7 +68,7 @@
                         die("Erreur de connexion dans le fichier {$e->getFile()} à la ligne {$e->getLine()} : {$e->getCode()} - {$e->getMessage()}");
                 }
                 foreach ($name as $na){
-                    echo "<h1>".$na['genom']." ".$na['prenom']."</h1>";
+                    echo "<h1 class='title'>".$na['genom']." ".$na['prenom']."</h1>";
                     }
                 echo "<form action='Insert.php' method='POST'>";
                     echo '<select name="agenceid" id="agenceid" class="new-btn">';

@@ -91,7 +91,7 @@ li:hover{
     margin: 25px 0 0 5%;
     font-size: 0.9em;
     min-width: 400px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.15);
+    box-shadow: 0 0 3px #00b08d ;
     border: #00b08d solid;
 }
 .styled-table thead tr{
@@ -208,8 +208,9 @@ li:hover{
 }
 .dropList{
     padding: 5px;
-    margin: 3px;
-    border-radius: 10px;
-    background: #00B398;
-    color: #fff;
+    margin: 3px 0 0 30px;
+    border-radius: 5px;
+}
+.liste, .title{
+    margin: 15px;
 }
